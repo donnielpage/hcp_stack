@@ -1,0 +1,56 @@
+# HCP Terraform Control Workspace Configuration
+# Copy this file to terraform.tfvars and customize the values
+
+# Organization Configuration
+organization_name = "dlp-org"
+organization_id   = "org-mhf7eMEcUbJKwSys"
+
+# GitHub Integration
+# Generate OAuth token from GitHub Settings > Developer settings > Personal access tokens
+github_oauth_token = "your-github-oauth-token-here"
+module_repository  = "donnielpage/hcp_stack"
+
+# Azure Service Principal Credentials
+# These will be used as default environment variables for managed workspaces
+azure_subscription_id = "your-azure-subscription-id"
+azure_tenant_id      = "your-azure-tenant-id"
+azure_client_id      = "your-service-principal-client-id"
+azure_client_secret  = "your-service-principal-client-secret"
+
+# Optional: Override default projects
+projects = {
+  infrastructure = {
+    description = "Core infrastructure and networking workspaces"
+  }
+  applications = {
+    description = "Application deployment workspaces"
+  }
+  security = {
+    description = "Security and compliance workspaces"
+  }
+  shared-services = {
+    description = "Shared services and utilities"
+  }
+}
+
+# Optional: Override default teams
+teams = {
+  platform-engineers = {
+    visibility = "organization"
+    organization_permissions = {
+      manage_policies         = true
+      manage_policy_overrides = true
+      manage_workspaces      = true
+      manage_vcs_settings    = true
+    }
+  }
+  developers = {
+    visibility = "organization"
+    organization_permissions = {
+      manage_policies         = false
+      manage_policy_overrides = false
+      manage_workspaces      = false
+      manage_vcs_settings    = false
+    }
+  }
+}
